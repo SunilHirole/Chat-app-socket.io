@@ -1,0 +1,23 @@
+{
+  "name": "socket-chat-app",
+  "version": "1.0.0",
+  "description": "My first socket io app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/SunilHirole/Chat-app-socket.io.git"
+  },
+  "keywords": [
+    "nodejs",
+    "sockets"
+  ],
+  "author": "Sunil Hirole",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SunilHirole/Chat-app-socket.io/issues"
+  },
+  "homepage": "https://github.com/SunilHirole/Chat-app-socket.io#readme"
+}
