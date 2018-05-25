@@ -19,23 +19,46 @@
     <form action="">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
+    <div id="typing"></div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 	<script>
 	  $(function () {
 	    var socket = io();
+	    var clearTimerId;
+	    var clearInterval = 900;
+
+	    // Sunmit form to post message
 	    $('form').submit(function(){
 	      socket.emit('chat message', $('#m').val());
 	      $('#m').val('');
 	      return false;
 	    });
 
+        // Bind to listen keypress event
+	    $('#m').bind("keypress",() => {
+	    	socket.emit('typing');
+		})
+        
+        //Emit event for change username 
 	    $('#send_username').click(function() {
               socket.emit('change_username', {username: $('#username').val()});
 	    })
+
+	    //Listen for new chat message
 	    socket.on('chat message', function(data){
 	      $('#messages').append($('<li>'+ data.username + ': ' +data.msg+ '</li>'));
 	    });
+
+	    //Listen for is typing event
+	    socket.on('typing', function(data) {
+          $('#typing').html("<p><i>"+data.username+" is typing a message......</i></p>");
+          clearTimeout(clearTimerId);
+		  clearTimerId = setTimeout(function () {
+	        //clear user is typing message
+	        $('#typing').html('');
+	        }, clearInterval);
+	    })
 	  });
 	</script>
   </body>

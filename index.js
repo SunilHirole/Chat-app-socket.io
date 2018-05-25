@@ -24,6 +24,11 @@ io.on('connection', function(socket){
     io.emit('chat message', {msg: msg, username: socket.username});
   });
 
+  //Listen on typing
+  socket.on('typing', function() {
+  	socket.broadcast.emit('typing', {username: socket.username});
+  })
+
   //Listen for disconnect event
   socket.on('disconnect', function(){
     console.log('user disconnected');
