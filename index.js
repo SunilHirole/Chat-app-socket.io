@@ -9,10 +9,22 @@ app.get('/', function(req, res){
 
 io.on('connection', function(socket){
   console.log('a user connected');
+
+  //Set Default username
+  socket.username = "Anonymous";
+
+  //Listen to change_username evemt
+  socket.on('change_username', function(data) {
+    socket.username = data.username;
+  })
+
+  //Listen for new messages from client
   socket.on('chat message', function(msg){
     console.log('message: ' + msg);
-    io.emit('chat message', msg);
+    io.emit('chat message', {msg: msg, username: socket.username});
   });
+
+  //Listen for disconnect event
   socket.on('disconnect', function(){
     console.log('user disconnected');
   });
