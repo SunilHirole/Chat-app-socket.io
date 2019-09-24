@@ -35,6 +35,6 @@ io.on('connection', function(socket){
   });
 });
 
-server.listen(8000, function(){
+server.listen(process.env.PORT || 8000, function(){
   console.log('listening on *:8000');
 });
